@@ -19,9 +19,19 @@ Route::get('/', function () {
 	return Redirect::route('dashboard');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['middleware' => ['auth', 'verified']], function () {
+	
+	Route::get('/dashboard', function () {
+		return Inertia::render('MyDashboard');
+	})->name('dashboard');
+
+	Route::get('/ReportPdm', function () {
+		return Inertia::render('ReportPdm/TechSpec/Index', [
+			'canLogin' => Route::has('login'),
+		]);
+	})->name('ReportPdm');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
