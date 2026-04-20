@@ -1,14 +1,13 @@
 import Checkbox from "@/Components/Checkbox";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        email: "",
+        name: "",
         password: "",
         remember: false,
     });
@@ -25,6 +24,8 @@ export default function Login({ status, canResetPassword }) {
         <GuestLayout>
             <Head title="App" />
 
+            <h1 className="text-4xl text-center font-bold my-4">Login</h1>
+
             {status && (
                 <div className="mb-4 text-sm font-medium text-green-600">
                     {status}
@@ -33,20 +34,20 @@ export default function Login({ status, canResetPassword }) {
 
             <form onSubmit={submit}>
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel htmlFor="name" value="Username" />
 
                     <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
+                        id="name"
+                        type="text"
+                        name="name"
+                        value={data.name}
                         className="mt-1 block w-full"
                         autoComplete="username"
                         isFocused={true}
-                        onChange={(e) => setData("email", e.target.value)}
+                        onChange={(e) => setData("name", e.target.value)}
                     />
 
-                    <InputError message={errors.email} className="mt-2" />
+                    <InputError message={errors.name} className="mt-2" />
                 </div>
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
@@ -78,11 +79,14 @@ export default function Login({ status, canResetPassword }) {
                     </label>
                 </div>
 
-                {/* Request New User */}
-                <div className="mt-4 block">
-                    <label className="flex items-center">
-                        <span>Request New User</span>
-                    </label>
+                <div className="mt-4 flex items-center justify-center">
+                    <button
+                        type="submit"
+                        className="w-full bg-blue-500 flex justify-center items-center px-4 py-2 rounded-md text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={processing}
+                    >
+                        Log in
+                    </button>
                 </div>
 
                 <div className="mt-4 flex items-center justify-end">
@@ -95,9 +99,15 @@ export default function Login({ status, canResetPassword }) {
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
-                        Log in
-                    </PrimaryButton>
+                    {/* Request New User */}
+                    <span className="ml-4">
+                        <Link
+                            href={route("ReqNewUser")}
+                            className="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:text-gray-400 dark:hover:text-gray-100 dark:focus:ring-offset-gray-800"
+                        >
+                            Request New User
+                        </Link>
+                    </span>
                 </div>
             </form>
         </GuestLayout>
