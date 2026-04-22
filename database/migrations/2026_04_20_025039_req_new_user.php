@@ -16,7 +16,7 @@ return new class extends Migration
 			$table->string('name');
 			$table->string('email');
 			$table->string('role');
-			$table->boolean('approved')->nullable();
+			$table->boolean('approved')->default(false);
 			$table->timestamps();
 		});
     }
