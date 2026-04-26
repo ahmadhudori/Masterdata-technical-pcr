@@ -1,14 +1,9 @@
 import DashboardLayout from "@/Layouts/DashboardLayout";
-import AddFormReportPdm from "@/Components/AddFormReportPdm";
-import { useState, useRef } from "react";
+import AddFormReportPdm from "@/Pages/ReportPdm/TechSpec/AddFormReportPdm";
+import { useState } from "react";
 
 export default function Index() {
     const [showAddForm, setShowAddForm] = useState(false);
-    const addFormRef = useRef(null);
-    const handleAddClick = () => {
-        // Logic untuk menampilkan form tambah data
-        setShowAddForm(true);
-    };
 
     return (
         <DashboardLayout>
@@ -76,7 +71,7 @@ export default function Index() {
                 </div>
                 <div>
                     <button
-                        onClick={handleAddClick}
+                        onClick={() => setShowAddForm(true)}
                         className="mt-4 px-4 py-2 bg-green-600 rounded-md hover:bg-green-700"
                     >
                         Add
@@ -92,13 +87,11 @@ export default function Index() {
                     </button>
                 </div>
             </div>
-            {showAddForm && (
-                <AddFormReportPdm
-                    title="Tech Spec"
-                    isOpen={showAddForm}
-                    onClose={() => setShowAddForm(false)}
-                />
-            )}
+            <AddFormReportPdm
+                title="Tech Spec"
+                isOpen={showAddForm}
+                onClose={() => setShowAddForm(false)}
+            />
         </DashboardLayout>
     );
 }

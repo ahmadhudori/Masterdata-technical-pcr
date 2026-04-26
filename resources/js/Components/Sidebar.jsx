@@ -1,3 +1,4 @@
+import hasAnyPermission from "@/Utils/Permissions";
 import { Link } from "@inertiajs/react";
 import { useState } from "react";
 
@@ -75,6 +76,32 @@ export default function Sidebar({ open }) {
                 >
                     Start Produksi
                 </a>
+                {hasAnyPermission(["permissions index"]) && (
+                    <Link
+                        href={route("permissions.index")}
+                        className={`block hover:bg-gray-700 p-2 mt-2 ${route().current("permissions.index") ? "bg-gray-700" : ""}`}
+                    >
+                        Permission
+                    </Link>
+                )}
+                {hasAnyPermission(["roles index"]) && (
+                    <Link
+                        href={route("roles.index")}
+                        active={route().current("roles*")}
+                        className={`block hover:bg-gray-700 p-2 mt-2 ${route().current("roles.index") ? "bg-gray-700" : ""}`}
+                    >
+                        Roles
+                    </Link>
+                )}
+                {hasAnyPermission(["users index"]) && (
+                    <Link
+                        href={route("users.index")}
+                        active={route().current("users*")}
+                        className={`block hover:bg-gray-700 p-2 mt-2 ${route().current("users.index") ? "bg-gray-700" : ""}`}
+                    >
+                        Users
+                    </Link>
+                )}
             </nav>
         </aside>
     );

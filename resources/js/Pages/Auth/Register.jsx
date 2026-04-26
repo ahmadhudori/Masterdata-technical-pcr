@@ -2,21 +2,43 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import Select2 from "@/Components/Select2";
+import Swal from "sweetalert2";
 
 export default function Register() {
+    const { roles } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         name: "",
         email: "",
         password: "",
         password_confirmation: "",
-        role: "",
+        selectedRoles: [],
     });
+
+    const formattedRoles = roles.map((role) => ({
+        value: role.name,
+        label: role.name,
+    }));
+
+    const handleSelectedRoles = (selected) => {
+        const selectedValues = selected.map((option) => option.value);
+        setData("selectedRoles", selectedValues);
+    };
 
     const submit = (e) => {
         e.preventDefault();
 
         post(route("register"), {
+            onSuccess: () => {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Data created successfully!",
+                    icon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            },
             onFinish: () => reset("password", "password_confirmation"),
         });
     };
@@ -106,24 +128,16 @@ export default function Register() {
                 {/* Role */}
                 <div className="mt-4">
                     <InputLabel value="Role" />
-                    <select
-                        value={data.role}
-                        onChange={(e) => {
-                            setData("role", e.target.value);
-                            if (errors.role) {
-                                setError("role", null);
-                            }
-                        }}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-900 dark:text-gray-300"
-                    >
-                        <option value="">Pilih Role</option>
-                        <option value="tech_spec">Tech Spec</option>
-                        <option value="tech_konstruksi">Tech Konstruksi</option>
-                        <option value="tech_material">Tech Material</option>
-                        <option value="tech_building">Tech Building</option>
-                        <option value="tech_curing">Tech Curing</option>
-                    </select>
-                    <InputError message={errors.role} className="mt-2" />
+                    <Select2
+                        onChange={handleSelectedRoles}
+                        options={formattedRoles}
+                        placeholder="Pilih Role..."
+                        className="text-gray-600 text-sm"
+                    />
+                    <InputError
+                        message={errors.selectedRoles}
+                        className="mt-2"
+                    />
                 </div>
 
                 <button

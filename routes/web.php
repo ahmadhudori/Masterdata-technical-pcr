@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 // use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
@@ -31,6 +33,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 			'canLogin' => Route::has('login'),
 		]);
 	})->name('ReportPdm');
+
+	Route::resource('/permissions', PermissionController::class);
+	Route::resource('/roles', RoleController::class)->except('show');
+	Route::resource('/users', UserController::class);
 });
 
 
