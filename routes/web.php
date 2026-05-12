@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportPdmController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 // use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Role;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -28,16 +30,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 		return Inertia::render('MyDashboard');
 	})->name('dashboard');
 
-	Route::get('/ReportPdm', function () {
-		return Inertia::render('ReportPdm/TechSpec/Index', [
-			'canLogin' => Route::has('login'),
-		]);
-	})->name('ReportPdm');
-
 	Route::resource('/permissions', PermissionController::class);
 	Route::resource('/roles', RoleController::class)->except('show');
 	Route::resource('/users', UserController::class);
-});
+	Route::resource('/report-pdm', ReportPdmController::class);
+
+	// Route Report PDM Konstruksi
+	Route::get('/report-pdm/{id}/edit-konstruksi', [ReportPdmController::class, 'editKonstruksi'])->name('report-pdm.edit-konstruksi');
+	Route::put('/report-pdm/{id}/update-konstruksi', [ReportPdmController::class, 'updateKonstruksi'])->name('report-pdm.update-konstruksi');
+
+	// Route Report PDM Material
+	Route::get('/report-pdm/{id}/edit-material', [ReportPdmController::class, 'editMaterial'])->name('report-pdm.edit.material');
+	});
+	Route::put('/report-pdm/{id}/update-material', [ReportPdmController::class, 'updateMaterial'])->name('report-pdm.update.material');
 
 
 Route::middleware('auth')->group(function () {
@@ -46,14 +51,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Route without middleware
 Route::get('/request-new-user', function () {
-	return Inertia::render('Auth/RequestNewUser');
+	$roles = Role::all();
+	return Inertia::render('Auth/RequestNewUser', [
+		'roles' => $roles
+	]);
 	})->name('ReqNewUser');
 
 Route::post('/request-new-user', [UserController::class, 'reqNewUser'])->name('ReqNewUser.submit');
-
-Route::get('/error', function () {
-	return Inertia::render('Error');
-	})->name('error');
 
 require __DIR__.'/auth.php';

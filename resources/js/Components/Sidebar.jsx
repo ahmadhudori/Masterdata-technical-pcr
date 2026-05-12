@@ -1,12 +1,13 @@
 import hasAnyPermission from "@/Utils/Permissions";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { useState } from "react";
 
 export default function Sidebar({ open }) {
+    const { auth } = usePage().props;
     const [openDropdown, setOpenDropdown] = useState(false);
     return (
         <aside
-            className={`bg-gray-800 text-white w-64 p-4 transition duration-300 ${open ? "" : "hidden"}`}
+            className={`bg-gray-800 text-white transition duration-300 ${open ? " w-64 p-4" : "w-0 overflow-hidden"}`}
         >
             <h1 className="text-xl font-bold mb-6">Technical PCR</h1>
 
@@ -41,19 +42,39 @@ export default function Sidebar({ open }) {
                         <>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
                                 <Link
-                                    href={route("ReportPdm")}
+                                    href={
+                                        auth.user.roles[0].name === "Tech Spec"
+                                            ? route("report-pdm.index")
+                                            : "#"
+                                    }
                                     className="block px-4 py-2"
                                 >
                                     Tech Spec
                                 </Link>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <a href="#" className="block px-4 py-2">
+                                <a
+                                    href={
+                                        auth.user.roles[0].name ===
+                                        "Tech Konstruksi"
+                                            ? route("report-pdm.index")
+                                            : "#"
+                                    }
+                                    className="block px-4 py-2"
+                                >
                                     Tech Konstruksi
                                 </a>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <a href="#" className="block px-4 py-2">
+                                <a
+                                    href={
+                                        auth.user.roles[0].name ===
+                                        "Tech Material"
+                                            ? route("report-pdm.index")
+                                            : "#"
+                                    }
+                                    className="block px-4 py-2"
+                                >
                                     Tech Material
                                 </a>
                             </div>
@@ -87,7 +108,6 @@ export default function Sidebar({ open }) {
                 {hasAnyPermission(["roles index"]) && (
                     <Link
                         href={route("roles.index")}
-                        active={route().current("roles*")}
                         className={`block hover:bg-gray-700 p-2 mt-2 ${route().current("roles.index") ? "bg-gray-700" : ""}`}
                     >
                         Roles
@@ -96,7 +116,6 @@ export default function Sidebar({ open }) {
                 {hasAnyPermission(["users index"]) && (
                     <Link
                         href={route("users.index")}
-                        active={route().current("users*")}
                         className={`block hover:bg-gray-700 p-2 mt-2 ${route().current("users.index") ? "bg-gray-700" : ""}`}
                     >
                         Users

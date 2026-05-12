@@ -13,7 +13,7 @@ export default function DashboardLayout({ children }) {
             <Sidebar open={open} />
 
             {/* Main */}
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col min-w-0">
                 {/* Topbar */}
                 <header className="flex justify-between items-center p-4 bg-blue-500 dark:bg-gray-800 shadow">
                     <button onClick={() => setOpen(!open)}>☰</button>
@@ -64,7 +64,7 @@ export default function DashboardLayout({ children }) {
                 </header>
 
                 {/* Content */}
-                <main className="p-6 overflow-auto">{children}</main>
+                <main className="p-6 overflow-scroll">{children}</main>
             </div>
         </div>
     );

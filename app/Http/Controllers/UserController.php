@@ -150,9 +150,9 @@ class UserController extends Controller implements HasMiddleware
 		]);
 	} catch (\Throwable $th) {
 		return back()->with([
-			"message" => "Someting went wrong",
-			"error" => $th
-		]);
+        "message" => "Something went wrong",
+        "error" => $th->getMessage() // ✅ hanya string
+    ]);
 	}
 
 }

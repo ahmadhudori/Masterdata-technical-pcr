@@ -48,6 +48,7 @@ export default function Select2({
             placeholder={placeholder || "Pilih opsi..."}
             isMulti={true} // Aktifkan fitur multiple select
             styles={customStyles}
+            menuPortalTarget={document.body}
         />
     );
 }

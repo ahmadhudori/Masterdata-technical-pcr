@@ -2,19 +2,31 @@ import flatpickr from "flatpickr";
 import { useEffect, useRef } from "react";
 import "flatpickr/dist/flatpickr.min.css";
 
-export default function DateTimeFlatpickr({ value, readOnly, className }) {
+export default function DateTimeFlatpickr({
+    value,
+    readOnly,
+    className,
+    onChange,
+}) {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        flatpickr(inputRef.current, {
+        const fp = flatpickr(inputRef.current, {
             enableTime: true,
-            noCalendar: false,
             dateFormat: "Y-m-d H:i",
             time_24hr: true,
-            defaultDate: value || new Date(),
+            defaultDate: value || null,
             clickOpens: !readOnly,
+
+            onChange: function (selectedDates, dateStr) {
+                if (onChange) {
+                    onChange(dateStr); // kirim ke parent
+                }
+            },
         });
-    }, [value, readOnly]);
+
+        return () => fp.destroy(); // cleanup
+    }, []);
 
     return (
         <input
@@ -22,6 +34,7 @@ export default function DateTimeFlatpickr({ value, readOnly, className }) {
             className={className}
             placeholder="Pilih Tanggal & Jam"
             readOnly={readOnly}
+            type="text"
         />
     );
 }
