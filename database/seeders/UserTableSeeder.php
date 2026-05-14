@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
         $userSpec = User::create([
 			'name' => 'Tech Spec',
 			'email' => 'tech.spec@gt-tires.com',
-			'password' => bcrypt('tech123'),
+			'password' => '123456',
 		]);
 
 		$specRole = Role::where('name', 'Tech Spec')->first();

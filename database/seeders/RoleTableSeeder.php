@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -15,5 +15,7 @@ class RoleTableSeeder extends Seeder
     {
         Role::create(['name' => 'Tech Spec']);
 		Role::create(['name' => 'Tech Konstruksi']);
+		Role::create(['name' => 'Tech Material']);
+		Role::create(['name' => 'Tech Curing & Building']);
     }
 }

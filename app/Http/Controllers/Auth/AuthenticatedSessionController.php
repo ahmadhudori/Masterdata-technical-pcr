@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,7 +31,19 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->validate([
+			'name' => 'required|string|max:255',
+			'password' => 'required|string'
+		]);
+		$user = User::where('name', $request->name)->first();
+
+		if(! $user || $user->password !== $request->password || $user->name !== $request->name) {
+			throw ValidationException::withMessages([
+				'name' => ['The provided credentials are incorrect.'],
+			]);
+		}
+
+		Auth::login($user, $request->boolean('remember'));
 
         $request->session()->regenerate();
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->string('code');
 			$table->string('pattern');
+			$table->string('konstruksi');
 			$table->string('pic_konstruksi');
 			$table->dateTime('tgl_kirim_konstruksi');
 			$table->string('pic_masterspec')->nullable();
@@ -26,6 +27,9 @@ return new class extends Migration
 			$table->string('pic_wip_curing')->nullable();
 			$table->dateTime('tgl_done_curing')->nullable();
 			$table->dateTime('tgl_done_bop_release')->nullable();
+			$table->string('pic_ekspedisi')->nullable();
+			$table->dateTime('tgl_ekspedisi')->nullable();
+			$table->double('berat_gt')->nullable();
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ class ReportPdm extends Model
 	protected $fillable = [
 		'code',
 		'pattern',
+		'konstruksi',
 		'pic_konstruksi',
 		'tgl_kirim_konstruksi',
 		'pic_masterspec',
@@ -22,6 +23,9 @@ class ReportPdm extends Model
 		'pic_wip_curing',
 		'tgl_done_curing',
 		'tgl_done_bop_release',
+		'pic_ekspedisi',
+		'tgl_ekspedisi',
+		'berat_gt',
 	];
 
 	public $timestamps = true;
@@ -32,9 +36,10 @@ class ReportPdm extends Model
 		'tgl_done_material' => 'datetime',
 		'tgl_done_curing' => 'datetime',
 		'tgl_done_bop_release' => 'datetime',
+		'tgl_ekspedisi' => 'datetime',
 	];
 
-	protected $appends = ['tgl_kirim_konstruksi_human', 'tgl_done_masterspec_human', 'approve_masterspec_human', 'tgl_done_material_human', 'tgl_done_curing_human', 'tgl_done_bop_release_human'];
+	protected $appends = ['tgl_kirim_konstruksi_human', 'tgl_done_masterspec_human', 'approve_masterspec_human', 'tgl_done_material_human', 'tgl_done_curing_human', 'tgl_done_bop_release_human', 'tgl_ekspedisi_human'];
 
 	public function getTglKirimKonstruksiHumanAttribute() {
 		return $this->attributes['tgl_kirim_konstruksi'] ? Carbon::parse($this->attributes['tgl_kirim_konstruksi'])->isoFormat('dddd, D MMMM YYYY HH:mm', 'Asia/Jakarta'): null;
@@ -58,5 +63,9 @@ class ReportPdm extends Model
 
 	public function getTglDoneBopReleaseHumanAttribute() {
 		return $this->attributes['tgl_done_bop_release'] ? Carbon::parse($this->attributes['tgl_done_bop_release'])->isoFormat('dddd, D MMMM YYYY HH:mm', 'Asia/Jakarta'): null;
+	}
+
+	public function getTglEkspedisiHumanAttribute() {
+		return $this->attributes['tgl_ekspedisi'] ? Carbon::parse($this->attributes['tgl_ekspedisi'])->isoFormat('dddd, D MMMM YYYY HH:mm', 'Asia/Jakarta'): null;
 	}
 }
