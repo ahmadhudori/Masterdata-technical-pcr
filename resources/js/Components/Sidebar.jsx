@@ -53,7 +53,7 @@ export default function Sidebar({ open }) {
                                 </Link>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <a
+                                <Link
                                     href={
                                         auth.user.roles[0].name ===
                                         "Tech Konstruksi"
@@ -63,10 +63,10 @@ export default function Sidebar({ open }) {
                                     className="block px-4 py-2"
                                 >
                                     Tech Konstruksi
-                                </a>
+                                </Link>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <a
+                                <Link
                                     href={
                                         auth.user.roles[0].name ===
                                         "Tech Material"
@@ -76,17 +76,17 @@ export default function Sidebar({ open }) {
                                     className="block px-4 py-2"
                                 >
                                     Tech Material
-                                </a>
+                                </Link>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <a href="#" className="block px-4 py-2">
+                                <Link href="#" className="block px-4 py-2">
                                     Tech Building
-                                </a>
+                                </Link>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <a href="#" className="block px-4 py-2">
+                                <Link href="#" className="block px-4 py-2">
                                     Tech Curing
-                                </a>
+                                </Link>
                             </div>
                         </>
                     )}

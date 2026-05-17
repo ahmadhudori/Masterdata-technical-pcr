@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->string('code');
 			$table->string('pattern');
-			$table->string('konstruksi');
+			$table->string('konstruksi')->nullable();
 			$table->string('pic_konstruksi');
 			$table->dateTime('tgl_kirim_konstruksi');
 			$table->string('pic_masterspec')->nullable();

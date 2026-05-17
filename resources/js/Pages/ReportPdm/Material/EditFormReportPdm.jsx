@@ -87,7 +87,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             type="text"
                                             name="code"
                                             id="code"
-                                            className="input"
+                                            className="filled"
                                             value={data.code}
                                             onChange={(e) =>
                                                 setData("code", e.target.value)
@@ -109,7 +109,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             id="pattern"
                                             name="pattern"
                                             type="text"
-                                            className="input"
+                                            className="filled"
                                             value={data.pattern}
                                             onChange={(e) =>
                                                 setData(
@@ -134,7 +134,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             id="pic_konstruksi"
                                             name="pic_konstruksi"
                                             type="text"
-                                            className="input"
+                                            className="filled"
                                             value={data.pic_konstruksi}
                                             disabled
                                         />
@@ -149,7 +149,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Tanggal Kirim
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="input"
+                                            className="filled"
                                             value={data.tgl_kirim_konstruksi}
                                             readOnly
                                         />
@@ -172,7 +172,11 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             id="pic_masterspec"
                                             name="pic_masterspec"
                                             type="text"
-                                            className="input"
+                                            className={
+                                                data.pic_masterspec
+                                                    ? "filled"
+                                                    : "disabled"
+                                            }
                                             value={data.pic_masterspec}
                                             disabled
                                             // onChange={(e) =>
@@ -193,7 +197,11 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Done Masterspec
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="input"
+                                            className={
+                                                data.tgl_done_masterspec
+                                                    ? "filled"
+                                                    : "disabled"
+                                            }
                                             value={data.tgl_done_masterspec}
                                             readOnly
                                             // onChange={(value) =>
@@ -214,7 +222,11 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Approve Masterspec
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="input"
+                                            className={
+                                                data.tgl_approve_masterspec
+                                                    ? "filled"
+                                                    : "disabled"
+                                            }
                                             value={data.tgl_approve_masterspec}
                                             readOnly={true}
                                             // onChange={(value) =>
@@ -246,7 +258,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             id="status"
                                             name="status"
                                             type="text"
-                                            className="input"
+                                            className="filled"
                                             value={data.status}
                                             disabled
                                             // onChange={(e) =>
@@ -315,7 +327,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         <input
                                             id="pic_curing"
                                             name="pic_curing"
-                                            className="input"
+                                            className="disabled"
                                             type="text"
                                             value={data.pic_curing}
                                             disabled
@@ -337,7 +349,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Done WIP Curing
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="input"
+                                            className="disabled"
                                             value={data.tgl_done_curing}
                                             readOnly={true}
                                             // onChange={(value) =>
@@ -355,7 +367,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Done Cek BOP (Release)
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="input"
+                                            className="disabled"
                                             value={data.tgl_done_cek_bop}
                                             readOnly={true}
                                             // onChange={(value) =>

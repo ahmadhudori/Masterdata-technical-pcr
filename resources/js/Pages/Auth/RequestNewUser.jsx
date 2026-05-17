@@ -17,13 +17,10 @@ export default function RequestNewUser() {
 
         post(route("ReqNewUser.submit"), {
             onSuccess: (page) => {
-                console.log(page.props.data);
                 if (!page.props.data) {
                     return alert("Data not found");
                 }
                 const { name, email, role } = page.props.data;
-
-                console.log(name, email, role);
 
                 const body = encodeURIComponent(
                     `Dear Pak Andi PW,
@@ -107,8 +104,9 @@ Terima kasih.`,
                         <option value="tech_spec">Tech Spec</option>
                         <option value="tech_konstruksi">Tech Konstruksi</option>
                         <option value="tech_material">Tech Material</option>
-                        <option value="tech_building">Tech Building</option>
-                        <option value="tech_curing">Tech Curing</option>
+                        <option value="tech_curing_building">
+                            Tech Curing/Building
+                        </option>
                     </select>
                     <InputError message={errors.role} className="mt-2" />
                 </div>

@@ -7,6 +7,7 @@ export default function DateTimeFlatpickr({
     readOnly,
     className,
     onChange,
+    onClose,
 }) {
     const inputRef = useRef(null);
 
@@ -21,6 +22,11 @@ export default function DateTimeFlatpickr({
             onChange: function (selectedDates, dateStr) {
                 if (onChange) {
                     onChange(dateStr); // kirim ke parent
+                }
+            },
+            onClose: function (selectedDates, dateStr) {
+                if (onClose) {
+                    onClose(dateStr); // kirim ke parent
                 }
             },
         });

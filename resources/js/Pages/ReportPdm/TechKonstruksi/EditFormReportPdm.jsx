@@ -33,7 +33,7 @@ export default function EditFormReportPdm({ reportPdm }) {
         tgl_kirim_konstruksi: formatDate(reportPdm.tgl_kirim_konstruksi),
         pic_masterspec: reportPdm.pic_masterspec ?? "",
         tgl_done_masterspec: reportPdm.tgl_done_masterspec ?? "",
-        tgl_approve_masterspec: reportPdm.approve_masterspec,
+        tgl_approve_masterspec: reportPdm.approve_masterspec ?? "",
         status: reportPdm.status,
         pic_material: reportPdm.pic_material ?? "",
         tgl_done_material: reportPdm.tgl_done_material ?? "",
@@ -219,6 +219,12 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             value={data.tgl_approve_masterspec}
                                             // readOnly={true}
                                             onChange={(value) =>
+                                                setData(
+                                                    "tgl_approve_masterspec",
+                                                    value,
+                                                )
+                                            }
+                                            onClose={(value) =>
                                                 setData(
                                                     "tgl_approve_masterspec",
                                                     value,

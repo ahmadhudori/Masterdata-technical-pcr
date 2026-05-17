@@ -162,6 +162,9 @@ export default function Index({ reportPdms, auth }) {
                                                 value.tgl_done_cek_bop_release_human
                                             }
                                         </td>
+                                        <td className="p-3 whitespace-nowrap"></td>
+                                        <td className="p-3 whitespace-nowrap"></td>
+                                        <td className="p-3 whitespace-nowrap"></td>
                                     </tr>
                                 ))}
                             </tbody>

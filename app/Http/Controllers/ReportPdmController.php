@@ -83,16 +83,13 @@ class ReportPdmController extends Controller
 		$request->validate([
 			'pic_masterspec' => 'required',
 			'tgl_done_masterspec' => 'required|date|after_or_equal:today',
-			'tgl_approve_masterspec' => 'required|date|after_or_equal:today',
 		], [
 			'tgl_done_masterspec.after_or_equal' => 'Hayoo, kamu mau input tanggal sebelum hari ini ya???',
-			'tgl_approve_masterspec.after_or_equal' => 'Hayoo, kamu mau input tanggal sebelum hari ini ya???',
 		]);
 
 		ReportPdm::find($id)->update([
 			'pic_masterspec' => $request->pic_masterspec,
 			'tgl_done_masterspec' => $request->tgl_done_masterspec,
-			'approve_masterspec' => $request->tgl_approve_masterspec
 		]);
 
 		return to_route('report-pdm.index');
@@ -118,12 +115,12 @@ class ReportPdmController extends Controller
 		// dd($request->all());
 		$request->validate([
 			'pic_masterspec' => 'required',
-			'tgl_done_masterspec' => 'required|date|after_or_equal:today',
-			// 'tgl_approve_masterspec' => 'required|date|after_or_equal:today',
+			'tgl_done_masterspec' => 'required|date|before_or_equal:now',
+			'tgl_approve_masterspec' => 'required|date|before_or_equal:now',
 			'pic_material' => 'required',
-			'tgl_done_material' => 'required|date|after_or_equal:today',
+			'tgl_done_material' => 'required|date|after_or_equal:tgl_approve_masterspec',
 		], [
-			'tgl_done_material.after_or_equal' => 'Hayoo, kamu mau input tanggal sebelum hari ini ya???',
+			'tgl_done_material.after_or_equal' => 'tanggal selesai material tidak bisa diinput sebelum tanggal approve masterspec',
 		]);
 
 		ReportPdm::find($id)->update([
@@ -143,14 +140,16 @@ class ReportPdmController extends Controller
 	// Konstruksi Update
 	public function updateKonstruksi(Request $request, string $id)
 	{
-		// dd($request->all());
+		// dd($request->tgl_approve_masterspec);
 		$request->validate([
 			'pic_konstruksi' => 'required',
-			'tgl_kirim_konstruksi' => 'required|date|after_or_equal:today',
-			'tgl_approve_masterspec' => 'required|date|after_or_equal:today',
+			'tgl_kirim_konstruksi' => 'required|date|before_or_equal:now',
+			'pic_masterspec' => 'required',
+			'tgl_done_masterspec' => 'required|date|before_or_equal:now',
+			'tgl_approve_masterspec' => 'required|date|after_or_equal:tgl_done_masterspec',
 		], [
 			'tgl_kirim_konstruksi.after_or_equal' => 'Hayoo, kamu mau input tanggal sebelum hari ini ya???',
-			'tgl_approve_masterspec.after_or_equal' => 'Hayoo, kamu mau input tanggal sebelum hari ini ya???',
+			'tgl_approve_masterspec.after_or_equal' => 'Input tidak bisa sebelum tanggal selesai masterspec',
 		]);
 
 		ReportPdm::find($id)->update([

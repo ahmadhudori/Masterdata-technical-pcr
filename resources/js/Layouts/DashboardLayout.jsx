@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }) {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="flex h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+        <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
             {/* Sidebar */}
             <Sidebar open={open} />
 
