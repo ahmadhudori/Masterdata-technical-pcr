@@ -20,7 +20,7 @@ class ReportPdmController extends Controller
 		)
 		->latest()->get();
 		// dd($reportPdms);
-        return Inertia::render('ReportPdm/Index', ['reportPdms' => $reportPdms]);
+        return Inertia::render('ReportPdm/Index', ['reportPdms' => $reportPdms, 'filters' => $request->only(['search'])]);
     }
 
     /**
@@ -38,11 +38,13 @@ class ReportPdmController extends Controller
 	// konstruksi store
     public function store(Request $request)
     {
+		// dd($request->all());
         $request->validate([
 			'code' => 'required|max:6',
-			'status' => 'required',
-			'pattern' => 'required',
-			'pic_konstruksi' => 'required',
+			'status' => 'required|string|max:255',
+			'pattern' => 'required|string|max:255',
+			'konstruksi' => 'required|string|max:255',
+			'pic_konstruksi' => 'required|string|max:255',
 			'tgl_kirim_konstruksi' => 'required|date',
 		]);
 	
@@ -50,6 +52,7 @@ class ReportPdmController extends Controller
 			'code' => $request->code,
 			'status' => $request->status,
 			'pattern' => $request->pattern,
+			'konstruksi' => $request->konstruksi,
 			'pic_konstruksi' => $request->pic_konstruksi,
 			'tgl_kirim_konstruksi' => $request->tgl_kirim_konstruksi
 		]);

@@ -28,6 +28,7 @@ export default function EditFormReportPdm({ reportPdm }) {
     const { data, setData, get, put, errors, reset } = useForm({
         code: reportPdm.code,
         pattern: reportPdm.pattern,
+        konstruksi: reportPdm.konstruksi,
         pic_konstruksi: reportPdm.pic_konstruksi,
         tgl_kirim_konstruksi: formatDate(reportPdm.tgl_kirim_konstruksi),
         pic_masterspec: reportPdm.pic_masterspec ?? "",
@@ -36,9 +37,13 @@ export default function EditFormReportPdm({ reportPdm }) {
         status: reportPdm.status,
         pic_material: auth.user.name,
         tgl_done_material: reportPdm.tgl_done_material ?? formatDateNow(),
-        pic_curing: reportPdm.pic_curing ?? "",
-        tgl_done_curing: reportPdm.tgl_done_curing ?? "",
-        tgl_done_cek_bop: reportPdm.tgl_done_cek_bop ?? "",
+        pic_curing_and_building: reportPdm.pic_curing_and_building ?? "",
+        tgl_done_curing_and_building:
+            reportPdm.tgl_done_curing_and_building ?? "",
+        tgl_done_bop_release: reportPdm.tgl_done_bop_release ?? "",
+        pic_ekspedisi: reportPdm.pic_ekspedisi ?? "",
+        tgl_ekspedisi: reportPdm.tgl_ekspedisi ?? "",
+        berat_gt: reportPdm.berat_gt ?? "",
         _method: "PUT",
     });
 
@@ -120,6 +125,33 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             disabled
                                         />
                                         <InputError message={errors.pattern} />
+                                    </div>
+
+                                    {/* KONSTRUKSI */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label
+                                            htmlFor="konstruksi"
+                                            className="text-white font-semibold"
+                                        >
+                                            Konstruksi
+                                        </label>
+                                        <input
+                                            id="konstruksi"
+                                            name="konstruksi"
+                                            type="text"
+                                            className="filled"
+                                            value={data.konstruksi}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "konstruksi",
+                                                    e.target.value,
+                                                )
+                                            }
+                                            disabled
+                                        />
+                                        <InputError
+                                            message={errors.konstruksi}
+                                        />
                                     </div>
 
                                     {/* PIC KONSTRUKSI */}
@@ -373,6 +405,68 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             // onChange={(value) =>
                                             //     setData("tgl_done_cek_bop", value)
                                             // }
+                                        />
+                                        <InputError
+                                            message={errors.tgl_done_cek_bop}
+                                        />
+                                    </div>
+
+                                    {/* PIC EKSPEDISI */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label className="text-white font-semibold">
+                                            Done Cek BOP (Release)
+                                        </label>
+                                        <DateTimeFlatpickr
+                                            className="disabled"
+                                            value={data.tgl_done_cek_bop}
+                                            readOnly={true}
+                                            // onChange={(value) =>
+                                            //     setData("tgl_done_cek_bop", value)
+                                            // }
+                                        />
+                                        <InputError
+                                            message={errors.tgl_done_cek_bop}
+                                        />
+                                    </div>
+
+                                    {/* TGL EKSPEDISI */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label className="text-white font-semibold">
+                                            Done Cek BOP (Release)
+                                        </label>
+                                        <DateTimeFlatpickr
+                                            className="disabled"
+                                            value={data.tgl_done_cek_bop}
+                                            readOnly={true}
+                                            // onChange={(value) =>
+                                            //     setData("tgl_done_cek_bop", value)
+                                            // }
+                                        />
+                                        <InputError
+                                            message={errors.tgl_done_cek_bop}
+                                        />
+                                    </div>
+
+                                    {/* BERAT GT */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label
+                                            className="text-white font-semibold"
+                                            htmlFor="berat_gt"
+                                        >
+                                            Berat GT
+                                        </label>
+                                        <input
+                                            id="berat_gt"
+                                            name="berat_gt"
+                                            className="input"
+                                            type="number"
+                                            value={data.berat_gt}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "berat_gt",
+                                                    e.target.value,
+                                                )
+                                            }
                                         />
                                         <InputError
                                             message={errors.tgl_done_cek_bop}
