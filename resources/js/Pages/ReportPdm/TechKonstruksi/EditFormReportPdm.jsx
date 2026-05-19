@@ -29,11 +29,12 @@ export default function EditFormReportPdm({ reportPdm }) {
     const { data, setData, get, put, errors, reset } = useForm({
         code: reportPdm.code,
         pattern: reportPdm.pattern,
+        konstruksi: reportPdm.pic_konstruksi,
         pic_konstruksi: reportPdm.pic_konstruksi,
         tgl_kirim_konstruksi: formatDate(reportPdm.tgl_kirim_konstruksi),
         pic_masterspec: reportPdm.pic_masterspec ?? "",
         tgl_done_masterspec: reportPdm.tgl_done_masterspec ?? "",
-        tgl_approve_masterspec: reportPdm.approve_masterspec ?? "",
+        tgl_approve_masterspec: reportPdm.approve_masterspec,
         status: reportPdm.status,
         pic_material: reportPdm.pic_material ?? "",
         tgl_done_material: reportPdm.tgl_done_material ?? "",
@@ -121,6 +122,27 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             disabled
                                         />
                                         <InputError message={errors.pattern} />
+                                    </div>
+
+                                    {/* KONSTRUKSI */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label
+                                            htmlFor="konstruksi"
+                                            className="text-white font-semibold"
+                                        >
+                                            Konstruksi
+                                        </label>
+                                        <input
+                                            id="konstruksi"
+                                            name="konstruksi"
+                                            type="text"
+                                            className="filled"
+                                            value={data.konstruksi}
+                                            disabled
+                                        />
+                                        <InputError
+                                            message={errors.konstruksi}
+                                        />
                                     </div>
 
                                     {/* PIC KONSTRUKSI */}
@@ -219,12 +241,6 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             value={data.tgl_approve_masterspec}
                                             // readOnly={true}
                                             onChange={(value) =>
-                                                setData(
-                                                    "tgl_approve_masterspec",
-                                                    value,
-                                                )
-                                            }
-                                            onClose={(value) =>
                                                 setData(
                                                     "tgl_approve_masterspec",
                                                     value,
