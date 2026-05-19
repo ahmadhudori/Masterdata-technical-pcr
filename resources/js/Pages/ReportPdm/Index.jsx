@@ -5,11 +5,11 @@ import hasAnyPermission from "@/Utils/Permissions";
 import { Link, useForm } from "@inertiajs/react";
 import { useState } from "react";
 
-export default function Index({ reportPdms, auth }) {
+export default function Index({ reportPdms, auth, filters }) {
     const [showAddForm, setShowAddForm] = useState(false);
     const [selectedId, setSelectedId] = useState("");
     const { data, setData, get } = useForm({
-        search: "",
+        search: filters.search || "",
     });
 
     const handleSearch = (e) => {
@@ -127,7 +127,9 @@ export default function Index({ reportPdms, auth }) {
                                         <td className="p-3 whitespace-nowrap">
                                             {value.pattern}
                                         </td>
-                                        <td className="p-3 whitespace-nowrap"></td>
+                                        <td className="p-3 whitespace-nowrap">
+                                            {value.konstruksi}
+                                        </td>
                                         <td className="p-3 whitespace-nowrap">
                                             {value.pic_konstruksi}
                                         </td>
@@ -150,11 +152,11 @@ export default function Index({ reportPdms, auth }) {
                                             {value.tgl_done_material_human}
                                         </td>
                                         <td className="p-3 whitespace-nowrap">
-                                            {value.pic_wip_curing_building}
+                                            {value.pic_wip_curing_and_building}
                                         </td>
                                         <td className="p-3 whitespace-nowrap">
                                             {
-                                                value.tgl_done_wip_curing_building_human
+                                                value.tgl_done_wip_curing_and_building_human
                                             }
                                         </td>
                                         <td className="p-3 whitespace-nowrap">
@@ -162,11 +164,28 @@ export default function Index({ reportPdms, auth }) {
                                                 value.tgl_done_cek_bop_release_human
                                             }
                                         </td>
-                                        <td className="p-3 whitespace-nowrap"></td>
-                                        <td className="p-3 whitespace-nowrap"></td>
-                                        <td className="p-3 whitespace-nowrap"></td>
+                                        <td className="p-3 whitespace-nowrap">
+                                            {value.pic_ekspedisi}
+                                        </td>
+                                        <td className="p-3 whitespace-nowrap">
+                                            {value.tgl_ekspedisi}
+                                        </td>
+                                        <td className="p-3 whitespace-nowrap">
+                                            {value.berat_gt}
+                                        </td>
                                     </tr>
                                 ))}
+                                {reportPdms.length === 0 && (
+                                    <tr>
+                                        <td
+                                            colSpan={4}
+                                            className="p-3 text-red-400"
+                                        >
+                                            Data Code {filters.search} tidak
+                                            ditemukan. Coba kata kunci lain.
+                                        </td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>

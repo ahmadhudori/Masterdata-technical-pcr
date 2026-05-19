@@ -2,7 +2,6 @@ import DateTimeFlatpickr from "@/Components/DateTimeFlatpickr";
 import InputError from "@/Components/InputError";
 import Modal from "@/Components/Modal";
 import { useForm, usePage } from "@inertiajs/react";
-import { useEffect } from "react";
 import Swal from "sweetalert2";
 
 export default function AddFormReportPdm({ onClose, isOpen }) {
@@ -19,28 +18,30 @@ export default function AddFormReportPdm({ onClose, isOpen }) {
     const { data, setData, post, errors, reset } = useForm({
         code: "",
         pattern: "",
+        konstruksi: "",
         pic_konstruksi:
             auth.user.roles[0].name === "Tech Konstruksi" ? auth.user.name : "",
         tgl_kirim_konstruksi:
             auth.user.roles[0].name === "Tech Konstruksi" ? formatDate() : "",
-        pic_masterspec:
-            auth.user.roles[0].name === "Tech Spec" ? auth.user.name : "",
-        tgl_done_masterspec:
-            auth.user.roles[0].name === "Tech Spec" ? formatDate() : "",
+        pic_masterspec: "",
+        tgl_done_masterspec: "",
         tgl_approve_masterspec: "",
         status: "",
         pic_material: "",
         tgl_done_material: "",
-        pic_curing: "",
-        tgl_done_curing: "",
-        tgl_done_cek_bop: "",
+        pic_curing_and_building: "",
+        tgl_done_curing_and_building: "",
+        tgl_done_bop_release: "",
+        pic_ekspedisi: "",
+        tgl_ekspedisi: "",
+        berat_gt: "",
     });
 
-    useEffect(() => {
-        if (auth.user.roles[0].name === "Tech Spec") {
-            setData("tgl_done_masterspec", formatDate());
-        }
-    }, [auth]);
+    // useEffect(() => {
+    //     if (auth.user.roles[0].name === "Tech Spec") {
+    //         setData("tgl_done_masterspec", formatDate());
+    //     }
+    // }, [auth]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -120,22 +121,25 @@ export default function AddFormReportPdm({ onClose, isOpen }) {
                                 {/* Konstruksi */}
                                 <div className="grid grid-cols-[180px_1fr] items-center gap-4">
                                     <label
-                                        htmlFor="pattern"
+                                        htmlFor="konstruksi"
                                         className="text-white font-semibold"
                                     >
                                         Konstruksi
                                     </label>
                                     <input
-                                        id="pattern"
-                                        name="pattern"
+                                        id="konstruksi"
+                                        name="konstruksi"
                                         type="text"
                                         className="input"
-                                        // value={data.pattern}
-                                        // onChange={(e) =>
-                                        //     setData("pattern", e.target.value)
-                                        // }
+                                        value={data.konstruksi}
+                                        onChange={(e) =>
+                                            setData(
+                                                "konstruksi",
+                                                e.target.value,
+                                            )
+                                        }
                                     />
-                                    <InputError message={errors.pattern} />
+                                    <InputError message={errors.konstruksi} />
                                 </div>
 
                                 {/* PIC Konstruksi */}
