@@ -246,6 +246,12 @@ export default function EditFormReportPdm({ reportPdm }) {
                                                     value,
                                                 )
                                             }
+                                            onClose={(value) =>
+                                                setData(
+                                                    "tgl_approve_masterspec",
+                                                    value,
+                                                )
+                                            }
                                         />
                                         <InputError
                                             message={
