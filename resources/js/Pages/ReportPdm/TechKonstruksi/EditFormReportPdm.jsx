@@ -29,18 +29,13 @@ export default function EditFormReportPdm({ reportPdm }) {
     const { data, setData, get, put, errors, reset } = useForm({
         code: reportPdm.code,
         pattern: reportPdm.pattern,
-        konstruksi: reportPdm.pic_konstruksi,
+        konstruksi: reportPdm.konstruksi,
         pic_konstruksi: reportPdm.pic_konstruksi,
         tgl_kirim_konstruksi: formatDate(reportPdm.tgl_kirim_konstruksi),
         pic_masterspec: reportPdm.pic_masterspec ?? "",
         tgl_done_masterspec: reportPdm.tgl_done_masterspec ?? "",
         tgl_approve_masterspec: reportPdm.approve_masterspec,
         status: reportPdm.status,
-        pic_material: reportPdm.pic_material ?? "",
-        tgl_done_material: reportPdm.tgl_done_material ?? "",
-        pic_curing: reportPdm.pic_curing ?? "",
-        tgl_done_curing: reportPdm.tgl_done_curing ?? "",
-        tgl_done_cek_bop: reportPdm.tgl_done_cek_bop ?? "",
         _method: "PUT",
     });
 
@@ -298,17 +293,7 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             name="pic_material"
                                             className="disabled"
                                             type="text"
-                                            value={data.pic_material}
                                             disabled
-                                            // onChange={(e) =>
-                                            //     setData(
-                                            //         "pic_material",
-                                            //         e.target.value,
-                                            //     )
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.pic_material}
                                         />
                                     </div>
 
@@ -319,59 +304,38 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         </label>
                                         <DateTimeFlatpickr
                                             className="disabled"
-                                            value={data.tgl_done_material}
                                             readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_material", value)
-                                            // }
                                         />
                                         <InputError
                                             message={errors.pic_material}
                                         />
                                     </div>
 
-                                    {/* PIC WIP CURING */}
+                                    {/* PIC WIP CURING & BUILDING */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">
                                         <label
-                                            htmlFor="pic_curing"
+                                            htmlFor="pic_curing_and_building"
                                             className="text-white font-semibold"
                                         >
-                                            PIC WIP Curing
+                                            PIC WIP Curing &amp; Building
                                         </label>
                                         <input
-                                            id="pic_curing"
-                                            name="pic_curing"
+                                            id="pic_curing_and_building"
+                                            name="pic_curing_and_building"
                                             className="disabled"
                                             type="text"
-                                            value={data.pic_curing}
                                             disabled
-                                            // onChange={(e) =>
-                                            //     setData(
-                                            //         "pic_curing",
-                                            //         e.target.value,
-                                            //     )
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.pic_curing}
                                         />
                                     </div>
 
-                                    {/* TGL DONE WIP CURING */}
+                                    {/* TGL DONE WIP CURING & BUILDING */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">
                                         <label className="text-white font-semibold">
-                                            Done WIP Curing
+                                            Done WIP Curing &amp; Building
                                         </label>
                                         <DateTimeFlatpickr
                                             className="disabled"
-                                            value={data.tgl_done_curing}
                                             readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_curing", value)
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.tgl_done_curing}
                                         />
                                     </div>
 
@@ -382,14 +346,42 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         </label>
                                         <DateTimeFlatpickr
                                             className="disabled"
-                                            value={data.tgl_done_cek_bop}
                                             readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_cek_bop", value)
-                                            // }
                                         />
-                                        <InputError
-                                            message={errors.tgl_done_cek_bop}
+                                    </div>
+
+                                    {/* PIC Ekspedisi */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label className="text-white font-semibold">
+                                            PIC Ekspedisi
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="disabled"
+                                            disabled
+                                        />
+                                    </div>
+
+                                    {/* Tanggal Ekspedisi */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label className="text-white font-semibold">
+                                            Tanggal Ekspedisi
+                                        </label>
+                                        <DateTimeFlatpickr
+                                            className="disabled"
+                                            readOnly={true}
+                                        />
+                                    </div>
+
+                                    {/* Berat GT */}
+                                    <div className="grid grid-cols-[180px_1fr] items-center gap-4">
+                                        <label className="text-white font-semibold">
+                                            Berat GT
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="disabled"
+                                            disabled
                                         />
                                     </div>
                                 </div>

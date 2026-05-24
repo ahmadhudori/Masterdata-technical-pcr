@@ -37,13 +37,6 @@ export default function EditFormReportPdm({ reportPdm }) {
         status: reportPdm.status,
         pic_material: auth.user.name,
         tgl_done_material: reportPdm.tgl_done_material ?? formatDateNow(),
-        pic_curing_and_building: reportPdm.pic_curing_and_building ?? "",
-        tgl_done_curing_and_building:
-            reportPdm.tgl_done_curing_and_building ?? "",
-        tgl_done_bop_release: reportPdm.tgl_done_bop_release ?? "",
-        pic_ekspedisi: reportPdm.pic_ekspedisi ?? "",
-        tgl_ekspedisi: reportPdm.tgl_ekspedisi ?? "",
-        berat_gt: reportPdm.berat_gt ?? "",
         _method: "PUT",
     });
 
@@ -348,48 +341,32 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         />
                                     </div>
 
-                                    {/* PIC WIP CURING */}
+                                    {/* PIC WIP CURING AND BUILDING */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">
                                         <label
-                                            htmlFor="pic_curing"
+                                            htmlFor="pic_curing_and_building"
                                             className="text-white font-semibold"
                                         >
-                                            PIC WIP Curing
+                                            PIC WIP Curing &amp; Building
                                         </label>
                                         <input
-                                            id="pic_curing"
-                                            name="pic_curing"
+                                            id="pic_curing_and_building"
+                                            name="pic_curing_and_building"
                                             className="disabled"
                                             type="text"
-                                            value={data.pic_curing}
                                             disabled
-                                            // onChange={(e) =>
-                                            //     setData(
-                                            //         "pic_curing",
-                                            //         e.target.value,
-                                            //     )
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.pic_curing}
                                         />
                                     </div>
 
-                                    {/* TGL DONE WIP CURING */}
+                                    {/* TGL DONE WIP CURING AND BUILDING */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">
                                         <label className="text-white font-semibold">
-                                            Done WIP Curing
+                                            Done WIP Curing &amp; Building
                                         </label>
                                         <DateTimeFlatpickr
                                             className="disabled"
                                             value={data.tgl_done_curing}
                                             readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_curing", value)
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.tgl_done_curing}
                                         />
                                     </div>
 
@@ -402,48 +379,34 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             className="disabled"
                                             value={data.tgl_done_cek_bop}
                                             readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_cek_bop", value)
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.tgl_done_cek_bop}
                                         />
                                     </div>
 
                                     {/* PIC EKSPEDISI */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">
-                                        <label className="text-white font-semibold">
-                                            Done Cek BOP (Release)
+                                        <label
+                                            className="text-white font-semibold"
+                                            htmlFor="pic_ekspedisi"
+                                        >
+                                            PIC Ekspedisi
                                         </label>
-                                        <DateTimeFlatpickr
+                                        <input
+                                            id="pic_ekspedisi"
+                                            name="pic_ekspedisi"
+                                            type="text"
                                             className="disabled"
-                                            value={data.tgl_done_cek_bop}
-                                            readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_cek_bop", value)
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.tgl_done_cek_bop}
+                                            disabled
                                         />
                                     </div>
 
                                     {/* TGL EKSPEDISI */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">
                                         <label className="text-white font-semibold">
-                                            Done Cek BOP (Release)
+                                            Tanggal Ekspedisi
                                         </label>
                                         <DateTimeFlatpickr
                                             className="disabled"
-                                            value={data.tgl_done_cek_bop}
                                             readOnly={true}
-                                            // onChange={(value) =>
-                                            //     setData("tgl_done_cek_bop", value)
-                                            // }
-                                        />
-                                        <InputError
-                                            message={errors.tgl_done_cek_bop}
                                         />
                                     </div>
 
@@ -458,18 +421,9 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         <input
                                             id="berat_gt"
                                             name="berat_gt"
-                                            className="input"
-                                            type="number"
-                                            value={data.berat_gt}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "berat_gt",
-                                                    e.target.value,
-                                                )
-                                            }
-                                        />
-                                        <InputError
-                                            message={errors.tgl_done_cek_bop}
+                                            className="disabled"
+                                            type="text"
+                                            disabled
                                         />
                                     </div>
                                 </div>
