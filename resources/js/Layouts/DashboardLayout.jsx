@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }) {
     const { theme, setTheme } = useTheme();
 
     return (
-        <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+        <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
             {/* Sidebar */}
             <Sidebar open={open} />
 
@@ -64,7 +64,7 @@ export default function DashboardLayout({ children }) {
                 </header>
 
                 {/* Content */}
-                <main className="p-6 overflow-scroll">{children}</main>
+                <main className="p-6 overflow-y-auto">{children}</main>
             </div>
         </div>
     );
