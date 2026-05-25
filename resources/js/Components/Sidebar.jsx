@@ -79,13 +79,16 @@ export default function Sidebar({ open }) {
                                 </Link>
                             </div>
                             <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <Link href="#" className="block px-4 py-2">
-                                    Tech Building
-                                </Link>
-                            </div>
-                            <div className="bottom-0 left-0 bg-gray-700 hover:bg-gray-600 shadow-md rounded">
-                                <Link href="#" className="block px-4 py-2">
-                                    Tech Curing
+                                <Link
+                                    href={
+                                        auth.user.roles[0].name ===
+                                        "Tech Curing & Building"
+                                            ? route("report-pdm.index")
+                                            : "#"
+                                    }
+                                    className="block px-4 py-2"
+                                >
+                                    Tech Curing/Building
                                 </Link>
                             </div>
                         </>

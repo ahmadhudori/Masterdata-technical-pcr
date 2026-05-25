@@ -57,11 +57,8 @@ export default function Edit({ auth }) {
                                 label={"Role Name"}
                                 type={"text"}
                                 value={data.name}
-                                onChange={(e) =>
-                                    setData("name", e.target.value)
-                                }
-                                errors={errors.name}
-                                placeholder="Input role name.."
+                                disabled
+                                className={"bg-gray-100 cursor-not-allowed"}
                             />
                         </div>
                         <div className="mb-4">

@@ -156,7 +156,7 @@ export default function Index({ reportPdms, auth, filters }) {
                                         </td>
                                         <td className="p-3 whitespace-nowrap">
                                             {
-                                                value.tgl_done_wip_curing_and_building_human
+                                                value.tgl_done_curing_and_building_human
                                             }
                                         </td>
                                         <td className="p-3 whitespace-nowrap">

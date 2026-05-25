@@ -29,7 +29,7 @@ class UserController extends Controller implements HasMiddleware
     {
         // get all users
         $users = User::with('roles')
-            ->when(request('search'), fn($query) => $query->where('name', 'like', '%'.request('search').'%'))
+            ->when(request('search'), fn($query) => $query->where('name', 'like', '%'.$request->search.'%'))
             ->latest()
             ->paginate(6);
 
@@ -55,8 +55,8 @@ class UserController extends Controller implements HasMiddleware
     {
          // validate request
          $request->validate([
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|min:3|max:255|unique:users',
+            'email' => 'required|email',
             'password' => 'required|confirmed|min:4',
             'selectedRoles' => 'required|array|min:1',
         ]);
@@ -102,8 +102,8 @@ class UserController extends Controller implements HasMiddleware
     {
         // validate request
         $request->validate([
-            'name' => 'required|min:3|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id,
+            'name' => 'required|min:3|max:255|unique:users,name,'.$user->id,
+            'email' => 'required|email,'.$user->id,
             'selectedRoles' => 'required|array|min:1',
         ]);
 
@@ -132,11 +132,11 @@ class UserController extends Controller implements HasMiddleware
     public function reqNewUser(Request $request) {
     $request->validate([
         "name" => "required|unique:req_new_users,name",
-        "email" => "required|email|unique:req_new_users,email",
+        "email" => "required|email",
         "role" => "required"
     ], [
 		'role.required' => 'Role belum diisi',
-		'email.unique' => 'Email tersebut sudah terdaftar',
+		'name.unique' => 'Username tersebut sudah terdaftar',
 	]);
 
 	try {

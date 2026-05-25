@@ -58,7 +58,7 @@ class ReportPdm extends Model
 	}
 
 	public function getTglDoneCuringAndBuildingHumanAttribute() {
-		return $this->attributes['tgl_done_curing_and_building'] ? Carbon::parse($this->attributes['tgl_done_curing'])->isoFormat('dddd, D MMMM YYYY HH:mm', 'Asia/Jakarta'): null;
+		return $this->attributes['tgl_done_curing_and_building'] ? Carbon::parse($this->attributes['tgl_done_curing_and_building'])->isoFormat('dddd, D MMMM YYYY HH:mm', 'Asia/Jakarta'): null;
 	}
 
 	public function getTglDoneBopReleaseHumanAttribute() {

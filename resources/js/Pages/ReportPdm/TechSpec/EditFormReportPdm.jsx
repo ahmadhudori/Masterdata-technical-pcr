@@ -18,6 +18,7 @@ export default function EditFormReportPdm({ reportPdm }) {
     };
 
     const formatDate = (date) => {
+        if (!date) return "";
         const d = new Date(date);
         const pad = (n) => n.toString().padStart(2, "0");
 
