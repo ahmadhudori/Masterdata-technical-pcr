@@ -33,24 +33,27 @@ export default function EditFormReportPdm({ reportPdm }) {
         pic_konstruksi: reportPdm.pic_konstruksi,
         tgl_kirim_konstruksi: formatDate(reportPdm.tgl_kirim_konstruksi),
         pic_masterspec: reportPdm.pic_masterspec ?? "",
-        tgl_done_masterspec: reportPdm.tgl_done_masterspec ?? "",
-        tgl_approve_masterspec: reportPdm.approve_masterspec ?? "",
+        tgl_done_masterspec: formatDate(reportPdm.tgl_done_masterspec) ?? "",
+        tgl_approve_masterspec: formatDate(reportPdm.approve_masterspec),
         status: reportPdm.status,
-        pic_material: auth.user.name,
-        tgl_done_material: reportPdm.tgl_done_material ?? formatDateNow(),
+        pic_material: reportPdm.pic_wip_material ?? "",
+        tgl_done_material: formatDate(reportPdm.tgl_done_material) ?? "",
+        pic_curing_building: auth.user.name,
+        tgl_done_curing_building: formatDateNow(),
         _method: "PUT",
     });
+
     console.log(reportPdm.approve_masterspec);
     console.log(data.tgl_approve_masterspec);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        put(route("report-pdm.update.material", reportPdm.id), {
+        put(route("report-pdm.update.curing-building", reportPdm.id), {
             onSuccess: () => {
                 reset();
                 Swal.fire({
                     title: "Success!",
-                    text: "Data Material has created successfully!",
+                    text: "Data Curing & Building has created successfully!",
                     icon: "success",
                     showConfirmButton: false,
                     timer: 2000,
@@ -307,16 +310,14 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         <input
                                             id="pic_material"
                                             name="pic_material"
-                                            className="input"
+                                            className={
+                                                data.pic_material
+                                                    ? "filled"
+                                                    : "disabled"
+                                            }
                                             type="text"
                                             value={data.pic_material}
                                             disabled
-                                            // onChange={(e) =>
-                                            //     setData(
-                                            //         "pic_material",
-                                            //         e.target.value,
-                                            //     )
-                                            // }
                                         />
                                         <InputError
                                             message={errors.pic_material}
@@ -329,18 +330,16 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Done WIP Material
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="input"
+                                            className={
+                                                data.tgl_done_material
+                                                    ? "filled"
+                                                    : "disabled"
+                                            }
                                             value={data.tgl_done_material}
                                             readOnly={true}
-                                            onChange={(value) =>
-                                                setData(
-                                                    "tgl_done_material",
-                                                    value,
-                                                )
-                                            }
                                         />
                                         <InputError
-                                            message={errors.pic_material}
+                                            message={errors.tgl_done_material}
                                         />
                                     </div>
 
@@ -355,9 +354,13 @@ export default function EditFormReportPdm({ reportPdm }) {
                                         <input
                                             id="pic_curing_and_building"
                                             name="pic_curing_and_building"
-                                            className="disabled"
+                                            className="input"
                                             type="text"
-                                            disabled
+                                            readOnly={true}
+                                            value={data.pic_curing_building}
+                                        />
+                                        <InputError
+                                            message={errors.pic_curing_building}
                                         />
                                     </div>
 
@@ -367,8 +370,10 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Done WIP Curing &amp; Building
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="disabled"
-                                            value={data.tgl_done_curing}
+                                            className="input"
+                                            value={
+                                                data.tgl_done_curing_building
+                                            }
                                             readOnly={true}
                                         />
                                     </div>

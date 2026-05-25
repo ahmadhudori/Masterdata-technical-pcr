@@ -44,6 +44,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	});
 	Route::put('/report-pdm/{id}/update-material', [ReportPdmController::class, 'updateMaterial'])->name('report-pdm.update.material');
 
+	// Route Report PDM Curing & Building
+	Route::get('/report-pdm/{id}/edit-curing-building', [ReportPdmController::class, 'editCuringBuilding'])->name('report-pdm.edit.curing-building');
+	Route::put('/report-pdm/{id}/update-curing-building', [ReportPdmController::class, 'updateCuringBuilding'])->name('report-pdm.update.curing-building');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

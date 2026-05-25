@@ -101,10 +101,10 @@ Terima kasih.`,
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark:bg-gray-900 dark:text-gray-300"
                     >
                         <option value="">Pilih Role</option>
-                        <option value="tech_spec">Tech Spec</option>
-                        <option value="tech_konstruksi">Tech Konstruksi</option>
-                        <option value="tech_material">Tech Material</option>
-                        <option value="tech_curing_building">
+                        <option value="Tech Spec">Tech Spec</option>
+                        <option value="Tech Konstruksi">Tech Konstruksi</option>
+                        <option value="Tech Material">Tech Material</option>
+                        <option value="Tech Curing/Building">
                             Tech Curing/Building
                         </option>
                     </select>

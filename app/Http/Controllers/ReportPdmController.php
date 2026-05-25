@@ -161,4 +161,31 @@ class ReportPdmController extends Controller
 
 		return to_route('report-pdm.index');
 	}
+
+	// Curing & Building Edit
+	public function editCuringBuilding(string $id)
+	{
+		return Inertia::render('ReportPdm/TechCuringBuilding/EditFormReportPdm', ['reportPdm' => ReportPdm::find($id)]);
+	}
+
+	public function updateCuringBuilding(Request $request, string $id)
+	{
+		$request->validate([
+			'pic_masterspec' => 'required',
+			'tgl_done_masterspec' => 'required|date|before_or_equal:now',
+			'tgl_approve_masterspec' => 'required|date|before_or_equal:now',
+			'pic_material' => 'required',
+			'tgl_done_material' => 'required|date|before_or_equal:now',
+			'pic_curing_building' => 'required',
+			'tgl_done_curing_building' => 'required|date|before_or_equal:now',
+		]);
+
+		ReportPdm::find($id)->update([
+			'pic_wip_curing_and_building' => $request->pic_curing_building,
+			'tgl_done_curing_and_building' => $request->tgl_done_curing_building
+		]);
+
+		return to_route('report-pdm.index');
+		
+	}
 }
