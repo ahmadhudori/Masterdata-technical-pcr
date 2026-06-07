@@ -1,10 +1,38 @@
 import hasAnyPermission from "@/Utils/Permissions";
 import { Link, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Sidebar({ open }) {
-    const { auth } = usePage().props;
+    const { auth, reqNewUsers } = usePage().props;
     const [openDropdown, setOpenDropdown] = useState(false);
+    const [requestNewUsers, setRequestNewUsers] = useState(
+        reqNewUsers.filter((req) => req.approved === 0).length,
+    );
+
+    useEffect(() => {
+        const interval = setInterval(async () => {
+            try {
+                const response = await axios.get(
+                    "/cek-update-request-new-users",
+                );
+                setRequestNewUsers(response.data.count);
+            } catch (error) {
+                console.error("Error fetching request new users:", error);
+            }
+        }, 600000); // Cek setiap 10 menit (600000 ms)
+
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (reqNewUsers) {
+            setRequestNewUsers(
+                reqNewUsers.filter((req) => req.approved === 0).length,
+            );
+        }
+    }, [reqNewUsers]);
+
     return (
         <aside
             className={`bg-gray-800 text-white transition duration-300 ${open ? " w-64 p-4" : "w-0 overflow-hidden"}`}
@@ -34,7 +62,7 @@ export default function Sidebar({ open }) {
                     Order EJO Technical
                 </Link>
                 <div
-                    className={`block hover:bg-gray-700 p-2 rounded ${(openDropdown ? "bg-gray-700" : "", route().current("ReportPdm") ? "bg-gray-700" : "")}`}
+                    className={`block hover:bg-gray-700 p-2 rounded ${openDropdown ? "bg-gray-700" : route().current("report-pdm.*") ? "bg-gray-700" : ""}`}
                     onClick={() => setOpenDropdown(!openDropdown)}
                 >
                     <button>Report PDM</button>
@@ -124,6 +152,17 @@ export default function Sidebar({ open }) {
                         Users
                     </Link>
                 )}
+                <Link
+                    href={route("request-new-users.list")}
+                    className="block hover:bg-gray-700 p-2 mt-2 rounded"
+                >
+                    <div className="flex items-center justify-between">
+                        <button type="button">Request New User</button>
+                        <span className="p-1 bg-red-600 w-5 h-5 text-xs font-bold rounded-full flex justify-center items-center">
+                            {requestNewUsers}
+                        </span>
+                    </div>
+                </Link>
             </nav>
         </aside>
     );

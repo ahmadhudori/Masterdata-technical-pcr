@@ -129,31 +129,48 @@ class UserController extends Controller implements HasMiddleware
         return back();
     }
 
-    public function reqNewUser(Request $request) {
-    $request->validate([
-        "name" => "required|unique:req_new_users,name",
-        "email" => "required|email",
-        "role" => "required"
-    ], [
-		'role.required' => 'Role belum diisi',
-		'name.unique' => 'Username tersebut sudah terdaftar',
-	]);
+	// request new user
 
-	try {
-		$requestNewUser = ReqNewUser::create([
-			"name" => $request->name,
-			"email" => $request->email,
-			"role" => $request->role
+    public function reqNewUser(Request $request) 
+	{
+		$request->validate([
+			"name" => "required|unique:req_new_users,name",
+			"email" => "required|email",
+			"role" => "required"
+		], [
+			'role.required' => 'Role belum diisi',
+			'name.unique' => 'Username tersebut sudah terdaftar',
 		]);
-		return Inertia::render('Auth/RequestNewUser', [
-			"data" => $requestNewUser
+
+		try {
+			$requestNewUser = ReqNewUser::create([
+				"name" => $request->name,
+				"email" => $request->email,
+				"role" => $request->role
+			]);
+			return Inertia::render('Auth/RequestNewUser', [
+				"data" => $requestNewUser
+			]);
+		} catch (\Throwable $th) {
+			return back()->with([
+			"message" => "Something went wrong",
+			"error" => $th->getMessage() // ✅ hanya string
 		]);
-	} catch (\Throwable $th) {
-		return back()->with([
-        "message" => "Something went wrong",
-        "error" => $th->getMessage() // ✅ hanya string
-    ]);
+		}
+
 	}
 
-}
+	public function reqNewUserList()
+	{
+		return Inertia::render('Users/reqNewUser/Index');
+	}
+
+	public function reqNewUserApprove(ReqNewUser $requestNewUser)
+	{
+		$requestNewUser->update([
+			"approved" => true
+		]);
+
+		return redirect()->route('request-new-users.list');
+	}
 }

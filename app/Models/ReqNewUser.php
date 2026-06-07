@@ -10,6 +10,7 @@ class ReqNewUser extends Model
     protected $fillable = [
 		'name',
 		'email',
-		'role'
+		'role',
+		'approved'
 	];
 }
