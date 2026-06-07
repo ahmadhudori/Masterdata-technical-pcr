@@ -40,11 +40,9 @@ export default function EditFormReportPdm({ reportPdm }) {
         tgl_done_material: formatDate(reportPdm.tgl_done_material) ?? "",
         pic_curing_building: auth.user.name,
         tgl_done_curing_building: formatDateNow(),
+        bop_release: reportPdm.tgl_done_bop_release,
         _method: "PUT",
     });
-
-    console.log(reportPdm.approve_masterspec);
-    console.log(data.tgl_approve_masterspec);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -384,11 +382,17 @@ export default function EditFormReportPdm({ reportPdm }) {
                                             Done Cek BOP (Release)
                                         </label>
                                         <DateTimeFlatpickr
-                                            className="disabled"
-                                            value={data.tgl_done_cek_bop}
-                                            readOnly={true}
+                                            className="input"
+                                            value={data.bop_release}
+                                            onChange={(e) =>
+                                                setData("bop_release", e)
+                                            }
+                                            onClose={(e) =>
+                                                setData("bop_release", e)
+                                            }
                                         />
                                     </div>
+                                    <InputError message={errors.bop_release} />
 
                                     {/* PIC EKSPEDISI */}
                                     <div className="grid grid-cols-[180px_1fr] items-center gap-4">

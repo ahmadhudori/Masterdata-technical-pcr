@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\ReqNewUser;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -35,6 +36,16 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
 				'permissions' => $request->user() ? $request->user()->getUserPermissions() : []
             ],
+			'reqNewUsers' => ReqNewUser::all()->map(function ($reqNewUser) {
+				return [
+					"id" => $reqNewUser->id,
+					"name" => $reqNewUser->name,
+					"email" => $reqNewUser->email,
+					"role" => $reqNewUser->role,
+					"approved" => $reqNewUser->approved,
+					"created_at" => $reqNewUser->created_at->diffForHumans()
+				];
+			}),
         ];
     }
 }

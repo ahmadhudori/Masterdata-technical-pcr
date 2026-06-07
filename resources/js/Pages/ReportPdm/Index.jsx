@@ -160,9 +160,7 @@ export default function Index({ reportPdms, auth, filters }) {
                                             }
                                         </td>
                                         <td className="p-3 whitespace-nowrap">
-                                            {
-                                                value.tgl_done_cek_bop_release_human
-                                            }
+                                            {value.tgl_done_bop_release_human}
                                         </td>
                                         <td className="p-3 whitespace-nowrap">
                                             {value.pic_ekspedisi}

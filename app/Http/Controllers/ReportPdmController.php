@@ -168,6 +168,7 @@ class ReportPdmController extends Controller
 		return Inertia::render('ReportPdm/TechCuringBuilding/EditFormReportPdm', ['reportPdm' => ReportPdm::find($id)]);
 	}
 
+	// Curing & Building Update
 	public function updateCuringBuilding(Request $request, string $id)
 	{
 		$request->validate([
@@ -178,11 +179,15 @@ class ReportPdmController extends Controller
 			'tgl_done_material' => 'required|date|before_or_equal:now',
 			'pic_curing_building' => 'required',
 			'tgl_done_curing_building' => 'required|date|before_or_equal:now',
+			'bop_release' => 'required|date|after_or_equal:tgl_done_curing_building',
+		], [
+			'bop_release.after_or_equal' => 'Input tidak bisa sebelum tanggal selesai curing & building',
 		]);
 
 		ReportPdm::find($id)->update([
 			'pic_wip_curing_and_building' => $request->pic_curing_building,
-			'tgl_done_curing_and_building' => $request->tgl_done_curing_building
+			'tgl_done_curing_and_building' => $request->tgl_done_curing_building,
+			'tgl_done_bop_release' => $request->bop_release
 		]);
 
 		return to_route('report-pdm.index');
