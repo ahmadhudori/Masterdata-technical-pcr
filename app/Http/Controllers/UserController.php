@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserApprovalUpdated;
 use App\Models\ReqNewUser;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -148,6 +149,13 @@ class UserController extends Controller implements HasMiddleware
 				"email" => $request->email,
 				"role" => $request->role
 			]);
+
+			$approved = ReqNewUser::where('approved', true)->count();
+			$pending = ReqNewUser::where('approved', false)->count();
+			$total = ReqNewUser::count();
+
+			broadcast(new UserApprovalUpdated($approved, $pending, $total));
+
 			return Inertia::render('Auth/RequestNewUser', [
 				"data" => $requestNewUser
 			]);
@@ -170,6 +178,12 @@ class UserController extends Controller implements HasMiddleware
 		$requestNewUser->update([
 			"approved" => true
 		]);
+
+		$approved = ReqNewUser::where('approved', true)->count();
+		$pending = ReqNewUser::where('approved', false)->count();
+		$total = ReqNewUser::count();
+
+		broadcast(new UserApprovalUpdated($approved, $pending, $total));
 
 		return redirect()->route('request-new-users.list');
 	}

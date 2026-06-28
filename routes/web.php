@@ -30,12 +30,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 	
 	Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-	// Route Cek Update Request New Users
-	Route::get('/cek-update-request-new-users', function () {
-		return response()->json([
-			'count' => ReqNewUser::where('approved', 0)->count()
-		]);
-	});
 	Route::get('/request-new-user-list', [UserController::class, 'reqNewUserList'])->name('request-new-users.list');
 	Route::patch('/request-new-user/{requestNewUser}', [UserController::class, 'reqNewUserApprove'])->name('req-new-user.approve');
 

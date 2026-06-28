@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\reportPdmCreated;
 use App\Models\ReportPdm;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class ReportPdmController extends Controller
 			'tgl_kirim_konstruksi' => 'required|date',
 		]);
 	
-		ReportPdm::create([
+		$report = ReportPdm::create([
 			'code' => $request->code,
 			'status' => $request->status,
 			'pattern' => $request->pattern,
@@ -56,6 +57,8 @@ class ReportPdmController extends Controller
 			'pic_konstruksi' => $request->pic_konstruksi,
 			'tgl_kirim_konstruksi' => $request->tgl_kirim_konstruksi
 		]);
+
+		broadcast(new reportPdmCreated($report))->toOthers();
 
 		return to_route('report-pdm.index');
     }

@@ -11,27 +11,18 @@ export default function Sidebar({ open }) {
     );
 
     useEffect(() => {
-        const interval = setInterval(async () => {
-            try {
-                const response = await axios.get(
-                    "/cek-update-request-new-users",
-                );
-                setRequestNewUsers(response.data.count);
-            } catch (error) {
-                console.error("Error fetching request new users:", error);
-            }
-        }, 600000); // Cek setiap 10 menit (600000 ms)
+        window.Echo.channel("dashboard-users").listen(
+            ".approval.updated",
+            (event) => {
+                // console.log(event);
+                setRequestNewUsers(event.pending);
+            },
+        );
 
-        return () => clearInterval(interval);
+        return () => {
+            window.Echo.leave("dashboard-users");
+        };
     }, []);
-
-    useEffect(() => {
-        if (reqNewUsers) {
-            setRequestNewUsers(
-                reqNewUsers.filter((req) => req.approved === 0).length,
-            );
-        }
-    }, [reqNewUsers]);
 
     return (
         <aside
